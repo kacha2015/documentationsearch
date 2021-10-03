@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { CardContent, FormControl, InputLabel, Link, MenuItem, Select, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -59,6 +58,7 @@ export default function PrimarySearchAppBar({username, handleSesionClose}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [searchValue, setSearchValue] = React.useState(null);
+  const [option, setOption] = React.useState('title');
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -83,6 +83,10 @@ export default function PrimarySearchAppBar({username, handleSesionClose}) {
   const handleChangeValue = (event) => {
     setSearchValue(event.target.value.trim());
   }
+
+  const handleOptionChange = (e) => {
+    setOption(e.target.value)
+}
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -159,6 +163,24 @@ export default function PrimarySearchAppBar({username, handleSesionClose}) {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          <Box>
+            <FormControl>
+            {/* <InputLabel id="demo-simple-select-label">Propiedad</InputLabel> */}
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Fields"
+                value={option}
+                onChange={handleOptionChange}
+            >
+                <MenuItem value={'title'}>Titulo</MenuItem>
+                <MenuItem value={'description'}>Descripcion</MenuItem>
+                <MenuItem value={'topic'}>Tema</MenuItem>
+
+            </Select>
+            </FormControl>
+          </Box>
+
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
@@ -189,7 +211,7 @@ export default function PrimarySearchAppBar({username, handleSesionClose}) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-      { searchValue && <DocumentationList searchValue={searchValue} /> }
+      { searchValue && <DocumentationList searchValue={searchValue} optionValue={option} /> }
     </Box>
   );
 }
