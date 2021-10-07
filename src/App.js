@@ -1,10 +1,7 @@
-import './App.css';
 import { useState, useEffect } from 'react';
-
 import { supabase } from './client';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
-import { Container, Divider } from '@mui/material';
-import InformationForm from './components/InformationForm';
+import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,12 +31,10 @@ function App() {
     return (
       <div>
         <PrimarySearchAppBar currentUser={user} handleSesionClose={signOut}/>
-
       </div>
     )
   }
 
-  
   return (
     <div>
       <h1>Hello, please sign in!</h1>

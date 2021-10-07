@@ -1,7 +1,6 @@
-import { Button, Container, FormControl, Grid, Input, InputLabel } from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
+import { Button, Container, FormControl, Grid, Input, InputLabel } from '@material-ui/core';
 import { supabase } from '../../client';
-import SendIcon from '@mui/icons-material/Send';
 
 const initialState = {
     title: '',
@@ -48,16 +47,16 @@ export default function InformationForm ({userId, setSearchValue}) {
             <h1>Nuevo Contenido</h1>
             <form className="row" onSubmit={enviarDatos}>
                 <div className="col-md-3">
-                    <label for="title">Titulo</label><br/>
+                    <label htmlFor="title">Titulo</label><br/>
                     <input type="text" placeholder="title" className="form-control" onChange={handleInputChange} name="title" required></input>
                 </div>
                 <div className="col-md-3">
-                    <label for="link">Link</label><br/>
+                    <label htmlFor="link">Link</label><br/>
                     <input type="text" placeholder="link" className="form-control" onChange={handleInputChange} name="url" required></input>
                 </div>
                 <div className="col-md-3">
-                    <label for="descirption">Descripcion</label><br/>
-                    <textarea id="descritpion" placeholder="description" className="form-control" name="descritpion" rows="4" cols="50" onChange={handleInputChange} required/>
+                    <label htmlFor="description">Descripcion</label><br/>
+                    <textarea id="description" placeholder="description" className="form-control" name="description" rows="4" cols="50" onChange={handleInputChange}/>
                 </div>
                 <button type="submit" className="btn btn-primary">Guardar</button>
             </form>

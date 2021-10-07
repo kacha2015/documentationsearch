@@ -1,6 +1,5 @@
-import { CardContent, FormControl, InputLabel, Link, MenuItem, Select, Typography } from '@mui/material';
-import { Box } from '@mui/system';
 import React from 'react';
+import { CardContent, FormControl, InputLabel, Link, MenuItem, Select, Typography } from '@mui/material';
 import { supabase } from '../../client';
 
 export const DocumentationList = ({searchValue, optionValue, userId}) => {
