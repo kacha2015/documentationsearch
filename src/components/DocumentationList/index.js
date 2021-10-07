@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import { supabase } from '../../client';
 
-export const DocumentationList = ({searchValue, optionValue}) => {
+export const DocumentationList = ({searchValue, optionValue, userId}) => {
 
   const [contents, setContents] = React.useState([])
 
@@ -18,7 +18,7 @@ export const DocumentationList = ({searchValue, optionValue}) => {
   }, [searchValue, optionValue])
 
   async function fetchContents(searchValue) {
-    const { data, error } = await supabase.from('documentation').select('*').ilike(optionValue, `%${searchValue}%`);
+    const { data, error } = await supabase.from('documentation').select('*').filter('user', 'eq', userId).ilike(optionValue, `%${searchValue}%`);
     setContents(data);
   }
 

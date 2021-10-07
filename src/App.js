@@ -3,12 +3,11 @@ import { useState, useEffect } from 'react';
 
 import { supabase } from './client';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
-import { Container } from '@mui/material';
+import { Container, Divider } from '@mui/material';
+import InformationForm from './components/InformationForm';
 
 function App() {
   const [user, setUser] = useState(null);
-  const [contents, setContents] = useState([])
-
   useEffect(() => {
     checkUser();
 
@@ -18,6 +17,7 @@ function App() {
   }, [])
   async function checkUser() {
     const user = supabase.auth.user();
+    console.log(user);
     setUser(user);
   }
   async function signInWithGithub() {
@@ -32,18 +32,19 @@ function App() {
 
   if (user) {
     return (
-      <Container>
-        <PrimarySearchAppBar username={user?.user_metadata.user_name} handleSesionClose={signOut}/>
-      </Container>
+      <div>
+        <PrimarySearchAppBar currentUser={user} handleSesionClose={signOut}/>
+
+      </div>
     )
   }
 
   
   return (
-    <Container>
+    <div>
       <h1>Hello, please sign in!</h1>
       <button onClick={signInWithGithub}>Sign In</button>
-    </Container>
+    </div>
   );
 }
 

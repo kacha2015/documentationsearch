@@ -7,12 +7,15 @@ import InputBase from '@mui/material/InputBase';
 import Menu from '@mui/material/Menu';
 import { CardContent, FormControl, InputLabel, Link, MenuItem, Select, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import MenuIcon from '@mui/icons-material/Menu';
+import './styles.css';
 
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { DocumentationList } from '../DocumentationList';
+import InformationForm from '../InformationForm';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,7 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({username, handleSesionClose}) {
+export default function PrimarySearchAppBar({currentUser, handleSesionClose}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [searchValue, setSearchValue] = React.useState(null);
@@ -105,7 +108,7 @@ export default function PrimarySearchAppBar({username, handleSesionClose}) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem>{username}</MenuItem>
+      <MenuItem><strong>{currentUser?.user_metadata.user_name}</strong></MenuItem>
       <MenuItem onClick={handleSesionClose}>Cerrar sesion</MenuItem>
     </Menu>
   );
@@ -137,7 +140,7 @@ export default function PrimarySearchAppBar({username, handleSesionClose}) {
         >
           <AccountCircle />
         </IconButton>
-        <p>{username}</p>
+        <p>{currentUser?.user_metadata.user_name}</p>
       </MenuItem>
     </Menu>
   );
@@ -146,6 +149,7 @@ export default function PrimarySearchAppBar({username, handleSesionClose}) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+         
           <Typography
             variant="h6"
             noWrap
@@ -211,7 +215,12 @@ export default function PrimarySearchAppBar({username, handleSesionClose}) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-      { searchValue && <DocumentationList searchValue={searchValue} optionValue={option} /> }
+      <div className="informationContainer">
+         <InformationForm setSearchValue={setSearchValue} userId={currentUser.id}></InformationForm>
+
+        { searchValue && <DocumentationList userId={currentUser.id} searchValue={searchValue} optionValue={option} /> }
+      </div>
+     
     </Box>
   );
 }
