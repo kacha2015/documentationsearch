@@ -11,7 +11,7 @@ const initialState = {
 
 export default function InformationForm ({userId, setSearchValue}) {
 
-    const [contents, setContents] = useState(initialState);
+    const [contents, setContents] = useState({...initialState, user: userId});
 
     const handleInputChange = (event) => {
         setContents({
@@ -24,7 +24,7 @@ export default function InformationForm ({userId, setSearchValue}) {
       e.preventDefault();
 
       try {
-        const { data, error } = await supabase.from('documentation').insert([contents]);
+        const { data, error } = await supabase.from('documentation').insert(contents);
         if (error) {
           throw error
         }
